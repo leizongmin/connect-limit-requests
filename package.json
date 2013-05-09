@@ -1,0 +1,33 @@
+{
+  "name":           "connect-refresh-limit",
+  "main":           "./lib/index.js",
+  "version":        "0.0.1",
+  "description":    "限制客户端的刷新频率，防止HTTP服务的DoS攻击",
+  "author":         "leizongmin <leizongmin@gmail.com> (http://ucdok.com)",
+  "contributors": [
+    {"name": "Lei Zongmin", "email": "leizongmin@gmail.com"}
+  ],
+  "repository": {
+    "type": "git",
+    "url":  "git://github.com/leizongmin/connect-refresh-limit.git"
+  },
+  "licenses":     [{
+    "type":         "MIT",
+    "url":          "https://raw.github.com/leizongmin/connect-refresh-limit/master/MIT-License"
+  }],
+  "bugs":{
+    "url":          "https://github.com/leizongmin/connect-refresh-limit/issues"
+  },
+  "engines": {
+    "node":         ">= 0.6.0"
+  },
+  "deependencies": {
+    "debug":        "~0.7"
+  },
+  "devDependencies": {
+    "mocha":        ">= 1.2"
+  },
+  "scripts": {
+    "test":         "mocha -t 5000"
+  }
+}
