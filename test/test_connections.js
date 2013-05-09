@@ -26,6 +26,33 @@ function expect (app, path, status, body, done) {
 
 describe('Test connect-refresh-limit middleware #4', function () {
 
+  function Request (url, address) {
+    this.url = url;
+    this.headers = {};
+    this.connection = new Connection(address);
+  }
+  util.inherits(Request, events.EventEmitter);
+
+  function Connection (address) {
+    this.remoteAddress = address;
+  }
+  util.inherits(Connection, events.EventEmitter);
+  Connection.prototype.close = function () {
+    this.emit('close');
+  };
+
+  function Response (done) {
+    this.done = done;
+    this.statusCode = 200;
+    this.data = '';
+  }
+  util.inherits(Response, events.EventEmitter);
+  Response.prototype.end = function (data) {
+    this.data = data;
+    this.done(this.statusCode, this.data);
+    this.emit('finish');
+  };
+
   it('#connections', function (done) {
 
     var handle = me({
@@ -41,33 +68,6 @@ describe('Test connect-refresh-limit middleware #4', function () {
         res.end(RESPONSE_TOO_MANY_REQUESTS);
       }
     });
-
-    function Request (url, address) {
-      this.url = url;
-      this.headers = {};
-      this.connection = new Connection(address);
-    }
-    util.inherits(Request, events.EventEmitter);
-
-    function Connection (address) {
-      this.remoteAddress = address;
-    }
-    util.inherits(Connection, events.EventEmitter);
-    Connection.prototype.close = function () {
-      this.emit('close');
-    };
-
-    function Response (done) {
-      this.done = done;
-      this.statusCode = 200;
-      this.data = '';
-    }
-    util.inherits(Response, events.EventEmitter);
-    Response.prototype.end = function (data) {
-      this.data = data;
-      this.done(this.statusCode, this.data);
-      this.emit('finish');
-    };
 
     function test (done) {
       var req = new Request('/', '127.0.0.1');
@@ -95,7 +95,6 @@ describe('Test connect-refresh-limit middleware #4', function () {
           var c4 = test(function (statusCode, body) {
             statusCode.should.equal(429);
             body.should.equal(RESPONSE_TOO_MANY_REQUESTS);
-            done();
 
             c1.close();
             c2.close();
