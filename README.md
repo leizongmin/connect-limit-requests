@@ -1,6 +1,6 @@
-[![Build Status](https://secure.travis-ci.org/leizongmin/connect-refresh-limit.png?branch=master)](http://travis-ci.org/leizongmin/connect-refresh-limit)
+[![Build Status](https://secure.travis-ci.org/leizongmin/connect-limit-requests.png?branch=master)](http://travis-ci.org/leizongmin/connect-limit-requests)
 
-connect-refresh-limit
+connect-limit-requests
 =====================
 
 防止恶意刷新攻击 connect中间件
@@ -9,16 +9,16 @@ connect-refresh-limit
 ## 安装
 
 ```bash
-npm install connect-refresh-limit
+npm install connect-limit-requests
 ```
 
 
 ## 使用
 
 ```javascript
-var refreshLimit = require('connect-refresh-limit');
+var requestLimit = require('connect-limit-requests');
 
-connect.use(refreshLimit(options));
+connect.use(requestLimit(options));
 ```
 
 配置：
@@ -27,13 +27,13 @@ connect.use(refreshLimit(options));
                                 请求头来指定客户端的IP，默认为false
 * {Number} **interval**         限制同一IP的请求数量时间间隔，默认为30,000ms
 * {Number} **limit**            限制同一IP的请求数量请求数量，默认为1000
-* {Number} **failureLimit**     开启恶意遍历检测，默认为50
-* {Number} **refreshInterval**  同一页面检测刷新时间间隔，默认为1000ms
+* {Number} **failureLimit**     开启恶意遍历检测，默认为50，设置为0关闭此功能
+* {Number} **refreshInterval**  同一页面检测刷新时间间隔，默认为1000ms，设置为0关闭此功能
 * {Number} **connections**      限制同已IP的连接数量，默认为100
 * {Function} **callback**       当被检查为恶意刷新时的回调函数，默认返回HTTP 429 Too Many Requests
                                 格式：  function (code, req, res, next) {}
 
-回调函数代码：
+回调函数第一个参数代码：
 
 * 1 - **OVER_REQUEST_LIMIT**      超过请求数量限制
 * 2 - **OVER_CONNECTION_LIMIT**   超过连接数量限制

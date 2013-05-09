@@ -1,5 +1,5 @@
 {
-  "name":           "connect-refresh-limit",
+  "name":           "connect-limit-requests",
   "main":           "./lib/index.js",
   "version":        "0.0.1",
   "description":    "限制客户端的刷新频率，防止HTTP服务的DoS攻击",
@@ -9,14 +9,14 @@
   ],
   "repository": {
     "type": "git",
-    "url":  "git://github.com/leizongmin/connect-refresh-limit.git"
+    "url":  "git://github.com/leizongmin/connect-limit-requests.git"
   },
   "licenses":     [{
     "type":         "MIT",
-    "url":          "https://raw.github.com/leizongmin/connect-refresh-limit/master/MIT-License"
+    "url":          "https://raw.github.com/leizongmin/connect-limit-requests/master/MIT-License"
   }],
   "bugs":{
-    "url":          "https://github.com/leizongmin/connect-refresh-limit/issues"
+    "url":          "https://github.com/leizongmin/connect-limit-requests/issues"
   },
   "engines": {
     "node":         ">= 0.6.0"
