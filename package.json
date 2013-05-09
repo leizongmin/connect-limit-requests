@@ -25,7 +25,11 @@
     "debug":        "~0.7"
   },
   "devDependencies": {
-    "mocha":        ">= 1.2"
+    "mocha":        ">= 1.2",
+    "should":       "~1.2",
+    "supertest":    "~0.6",
+    "express":      "~3.2",
+    "bright-flow":  "~0.0.3"
   },
   "scripts": {
     "test":         "mocha -t 5000"
