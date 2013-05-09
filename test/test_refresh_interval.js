@@ -51,12 +51,13 @@ describe('Test connect-refresh-limit middleware #2', function () {
     expect(app, '/', 200, RESPONSE_OK, function () {
       expect(app, '/', 429, RESPONSE_TOO_MANY_REQUESTS, function () {
         setTimeout(function () {
-          expect(app, '/', 200, RESPONSE_OK, done);
-          expect(app, '/', 429, RESPONSE_TOO_MANY_REQUESTS, function () {
-            setTimeout(function () {
-              expect(app, '/', 200, RESPONSE_OK, done);
-            }, INTERVAL);
-          })
+          expect(app, '/', 200, RESPONSE_OK, function () {
+            expect(app, '/', 429, RESPONSE_TOO_MANY_REQUESTS, function () {
+              setTimeout(function () {
+                expect(app, '/', 200, RESPONSE_OK, done);
+              }, INTERVAL);
+            })
+          });
         }, INTERVAL);
       });
     });

@@ -55,9 +55,11 @@ describe('Test connect-refresh-limit middleware #4', function () {
 
   it('#connections', function (done) {
 
-    var handle = me({
+    var INTERVAL = 500;
+
+    var limit = new me.Limiter({
       proxy:            false,
-      interval:         10000,
+      interval:         INTERVAL,
       limit:            10000,
       failureLimit:     10000,
       refreshInterval:  0,
@@ -68,6 +70,7 @@ describe('Test connect-refresh-limit middleware #4', function () {
         res.end(RESPONSE_TOO_MANY_REQUESTS);
       }
     });
+    var handle = limit.getHandle();
 
     function test (done) {
       var req = new Request('/', '127.0.0.1');
@@ -103,7 +106,16 @@ describe('Test connect-refresh-limit middleware #4', function () {
             var c5 = test(function (statusCode, body) {
               statusCode.should.equal(200);
               body.should.equal(RESPONSE_OK);
-              done();
+              
+              c4.close();
+              c5.close();
+
+              // 自动删除客户端实例
+              setTimeout(function () {
+                Object.keys(limit.iptables).length.should.equal(0);
+                done();
+              }, INTERVAL * 1.2);
+
             });
           });
         });
