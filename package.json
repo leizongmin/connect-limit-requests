@@ -21,7 +21,7 @@
   "engines": {
     "node":         ">= 0.6.0"
   },
-  "deependencies": {
+  "dependencies": {
     "debug":        "~0.7"
   },
   "devDependencies": {
