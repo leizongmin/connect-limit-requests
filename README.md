@@ -4,16 +4,14 @@ connect-refresh-limit
 防止恶意刷新攻击 connect中间件
 
 
-安装
-==========
+## 安装
 
 ```bash
 npm install connect-refresh-limit
 ```
 
 
-使用
-========
+## 使用
 
 ```javascript
 var refreshLimit = require('connect-refresh-limit');
@@ -35,14 +33,13 @@ connect.use(refreshLimit(options));
 
 回调函数代码：
 
-* 1 - OVER_REQUEST_LIMIT      超过请求数量限制
-* 2 - OVER_CONNECTION_LIMIT   超过连接数量限制
-* 3 - OVER_REFRESH_LIMIT      恶意刷新
-* 4 - OVER_FAILURE_LIMIT      超过出错数量限制
+* 1 - **OVER_REQUEST_LIMIT**      超过请求数量限制
+* 2 - **OVER_CONNECTION_LIMIT**   超过连接数量限制
+* 3 - **OVER_REFRESH_LIMIT**      恶意刷新
+* 4 - **OVER_FAILURE_LIMIT**      超过出错数量限制
 
 
-授权
-=========
+## 授权
 
 ```
 Copyright (c) 2013 Lei Zongmin(雷宗民) <leizongmin@gmail.com>
