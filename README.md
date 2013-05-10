@@ -16,29 +16,36 @@ npm install connect-limit-requests
 ## 使用
 
 ```javascript
-var requestLimit = require('connect-limit-requests');
+var connect = require('connect');
+var limitRequests = require('connect-limit-requests');
 
-connect.use(requestLimit(options));
+var app = connect();
+
+var options = {
+  interval:   30000,
+  limit:      100
+};
+app.use(limitRequests(options));
 ```
 
 配置（可选）：
 
-* {Boolean} **proxy**           是否来自代理服务器，如果是，代理服务器必须传递请求头 X-Real-IP
-                                请求头来指定客户端的IP，默认为false
-* {Number} **interval**         限制同一IP的请求数量时间间隔，默认为30,000ms
-* {Number} **limit**            限制同一IP的请求数量请求数量，默认为1000
-* {Number} **failureLimit**     限制同已IP的错误请求数量（非200和304响应），默认为50，设置为0关闭此功能
-* {Number} **refreshInterval**  同一页面检测刷新时间间隔，默认为1000ms，设置为0关闭此功能
-* {Number} **connections**      限制同已IP的连接数量，默认为100
-* {Function} **callback**       当被检查为恶意刷新时的回调函数，默认返回HTTP 429 Too Many Requests
-                                格式：  function (code, req, res, next) {}
+* {Boolean} **proxy** ------------ 是否来自代理服务器，如果是，代理服务器必须传递请求头 X-Real-IP
+                                   请求头来指定客户端的IP，默认为 **false**
+* {Number} **interval** ---------- 限制同一IP的请求数量时间间隔，默认为 **30,000ms**
+* {Number} **limit** ------------- 限制同一IP的请求数量请求数量，默认为 **1000**
+* {Number} **failureLimit** ------ 限制同已IP的错误请求数量（非200和304响应），默认为 **50** ， **设置为0关闭此功能**
+* {Number} **refreshInterval** --- 同一页面检测刷新时间间隔，默认为 **1000ms** ， **设置为0关闭此功能**
+* {Number} **connections** ------- 限制同已IP的连接数量，默认为 **100**
+* {Function} **callback** -------- 当被检查为恶意刷新时的回调函数， **默认返回HTTP 429 Too Many Requests**
+                                   格式：  `function (code, req, res, next) {}`
 
 回调函数第一个参数代码：
 
-* 1 - **OVER_REQUEST_LIMIT**      超过请求数量限制
-* 2 - **OVER_CONNECTION_LIMIT**   超过连接数量限制
-* 3 - **OVER_REFRESH_LIMIT**      恶意刷新
-* 4 - **OVER_FAILURE_LIMIT**      超过出错数量限制
+* 1 - **OVER_REQUEST_LIMIT** ----- 超过请求数量限制
+* 2 - **OVER_CONNECTION_LIMIT** -- 超过连接数量限制
+* 3 - **OVER_REFRESH_LIMIT** ----- 恶意刷新
+* 4 - **OVER_FAILURE_LIMIT** ----- 超过出错数量限制
 
 
 ## 授权
