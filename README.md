@@ -3,6 +3,8 @@
 connect-limit-requests
 =====================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/leizongmin/connect-limit-requests.svg)](https://greenkeeper.io/)
+
 HTTP请求限制 **预防攻击者对HTTP服务的恶意攻击** connect中间件
 
 
